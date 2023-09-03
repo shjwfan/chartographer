@@ -82,7 +82,7 @@ Response code: `200 OK`.
 ╚═════════╝
 ```
 
-## Solution Formatting Requirements
+## Requirements
 
 - Code compilation and execution with Java 17.
 - Build the service using Apache Maven with the command `mvn clean package`.
