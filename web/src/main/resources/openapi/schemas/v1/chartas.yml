@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  title: Chartas API v1 specification.
+  version: '1.0'
+servers:
+  - url: http://localhost:8080/api/v1
+tags:
+  - name: chartas
+paths:
+  /chartas:
+    post:
+      description: |
+        Create a new image of a papyrus with the given dimensions in pixels, where `{width}` and `{height}` are positive integers not exceeding `50,000` and `50,000`, respectively.
+        The request body is empty.
+        The response body returns `{id}` - an identifier of the image in string representation.
+      operationId: create
+      parameters:
+        - $ref: '#/components/parameters/width'
+        - $ref: '#/components/parameters/height'
+      responses:
+        201:
+          description: Create charta response.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/CreateChartaResponse'
+        default:
+          description: Unexpected response.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/UnexpectedResponse'
+      tags:
+        - chartas
+  /chartas/{id}:
+    get:
+      description: |
+        Retrieve a restored portion of the image with dimensions `{width} x {height}` and coordinates `({x};{y})`,
+        where `{width}` and `{height}` are positive integers not exceeding 5,000.
+        Coordinates refer to the position of the top-left corner of the fragment relative to the top-left corner of the entire image.
+        The response body: the BMP (RGB color, 24 bits per pixel).
+      operationId: retrieve
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/x'
+        - $ref: '#/components/parameters/y'
+        - $ref: '#/components/parameters/width'
+        - $ref: '#/components/parameters/height'
+      responses:
+        200:
+          description: BMP (RGB color, 24 bits per pixel).
+          content:
+            'application/octet-stream':
+              schema:
+                type: string
+                format: binary
+        default:
+          description: Unexpected response.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/UnexpectedResponse'
+      tags:
+        - chartas
+    post:
+      description: |
+        Save the reconstructed image fragment with dimensions `{width} x {height}` and coordinates `({x};{y})`.
+        Coordinates refer to the position of the top-left corner of the fragment relative to the top-left corner of the entire image.
+        Request body: the image in BMP format (RGB color, 24 bits per pixel).
+        The response body is empty.
+      operationId: merge
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/x'
+        - $ref: '#/components/parameters/y'
+      requestBody:
+        description: BMP (RGB color, 24 bits per pixel).
+        content:
+          'application/octet-stream':
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        200:
+          description: Empty response.
+        default:
+          description: Unexpected response.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/UnexpectedResponse'
+      tags:
+        - chartas
+    delete:
+      description: |
+        Delete the image with the identifier `{id}`.
+        The request body and the response body are empty.
+      operationId: delete
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Empty response.
+        default:
+          description: Unexpected response.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/UnexpectedResponse'
+      tags:
+        - chartas
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Charta id.
+      required: true
+      schema:
+        type: string
+    x:
+      name: x
+      in: query
+      description: Charta x.
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50000
+    y:
+      name: y
+      in: query
+      description: Charta y.
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50000
+    width:
+      name: width
+      in: query
+      description: Charta width.
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50000
+    height:
+      name: height
+      in: query
+      description: Charta height.
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50000
+  schemas:
+    CreateChartaResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+        - id
+    UnexpectedResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message

@@ -1,0 +1,8 @@
+chartographer:
+  enable-logger-decorators: enable
+
+springdoc:
+  api-docs:
+    path: /api/v1/docs
+  swagger-ui:
+    path: /swagger-ui.html
