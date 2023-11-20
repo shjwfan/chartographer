@@ -30,6 +30,10 @@ public class MergeChartaUseCaseLoggerDecorator extends LoggerDecorator implement
 
           logger.info("Charta {} merging finished at: {}, with x: {} and y: {}, duration in seconds: {}, duration in millis: {}",
               id, finishedAt, x, y, durationInSeconds, durationInMillis);
+        })
+        .exceptionally(e-> {
+            logger.error("Charta {} merging error: ", id, e);
+            return null;
         });
   }
 }

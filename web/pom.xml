@@ -85,7 +85,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>org.shjwfan.web.WebApplication</mainClass>
+          <mainClass>org.shjwfan.web.ChartographerWebApplication</mainClass>
         </configuration>
       </plugin>
     </plugins>

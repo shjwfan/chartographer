@@ -29,6 +29,10 @@ public class DeleteChartaUseCaseLoggerDecorator extends LoggerDecorator implemen
 
           logger.info("Charta {} deleting finished at: {}, duration in seconds: {}, duration in millis: {}",
               id, finishedAt, durationInSeconds, durationInMillis);
+        })
+        .exceptionally(e -> {
+          logger.error("Charta deleting error: ", e);
+          return null;
         });
   }
 }

@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 @ComponentScan("org.shjwfan")
 @Configuration
-public class WebApplication {
+public class ChartographerWebApplication {
 
   public static void main(String[] args) {
-    SpringApplication application = new SpringApplication(WebApplication.class);
+    SpringApplication application = new SpringApplication(ChartographerWebApplication.class);
     application.setBanner((environment, sourceClass, out) -> {
       try {
         out.write("""                                                                                  

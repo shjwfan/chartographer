@@ -27,10 +27,14 @@ public class CreateChartaUseCaseLoggerDecorator extends LoggerDecorator implemen
           long durationInSeconds = duration.toSeconds();
           long durationInMillis = duration.toMillis();
 
-          logger.info("Finishing charta {} creating, with width: {} and height: {}, at {}, duration in seconds: {}, duration in millis: {}",
-              id, width, height, finishedAt, durationInSeconds, durationInMillis);
+          logger.info("Charta {} creating finished at: {}, with width: {} and height: {}, duration in seconds: {}, duration in millis: {}",
+              id, finishedAt, width, height, durationInSeconds, durationInMillis);
 
           return id;
+        })
+        .exceptionally(e -> {
+          logger.error("Charta creating error: ", e);
+          return null;
         });
   }
 }

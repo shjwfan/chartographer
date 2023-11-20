@@ -32,6 +32,10 @@ public class RetrieveChartaUseCaseLoggerDecorator extends LoggerDecorator implem
               id, finishedAt, x, y, width, height, durationInSeconds, durationInMillis);
 
           return retrieved;
+        })
+        .exceptionally(e-> {
+          logger.error("Charta {} retrieving error: ", id, e);
+          return null;
         });
   }
 }
