@@ -22,7 +22,7 @@ docker build -t "$IMAGE_NAME:$IMAGE_TAG" -f "$DOCKERFILE" .
 
 if [ $? -eq 0 ]; then
   echo "Chartographer Docker image has been built: $IMAGE_NAME:$IMAGE_TAG."
-  docker run -d --name $CONTAINER_NAME -p 8080:8080 "$IMAGE_NAME:$IMAGE_TAG"
+  docker run -d --name $CONTAINER_NAME -p 8080:8080 -p 5005:5005 "$IMAGE_NAME:$IMAGE_TAG"
 
   if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
     echo "Chartographer Docker container has been started."

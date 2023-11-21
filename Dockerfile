@@ -12,4 +12,4 @@ COPY ${JAR} web-1.0-SNAPSHOT.jar
 COPY ${JAR_PROPS} application.yml
 COPY ${LOGGING_CONFIG} logging-config.xml
 
-ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005", "-jar", "/chartographer/web-1.0-SNAPSHOT.jar", "./", "--spring.config.import=file:/chartographer/application.yml"]
+ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-jar", "/chartographer/web-1.0-SNAPSHOT.jar", "./", "--spring.config.import=file:/chartographer/application.yml"]
