@@ -1,6 +1,9 @@
 chartographer:
   enable-logger-decorators: enable
 
+logging:
+  config: logging-config.xml # classpath:logging-config.xml - logback
+
 springdoc:
   api-docs:
     path: /api/v1/docs

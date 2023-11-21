@@ -25,7 +25,7 @@ public class BitmapReader24BitsBased implements BitmapReader {
   public FileHeader readFileHeader(InputStream is) throws IOException {
     byte[] bytes = new byte[14];
     if (14 != is.read(bytes)) {
-      throw new IOException();
+      throw new IOException("invalid file header");
     }
 
     ByteBuffer buffer = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN);
@@ -37,7 +37,7 @@ public class BitmapReader24BitsBased implements BitmapReader {
   public DibHeader readDibHeader(InputStream is) throws IOException {
     byte[] bytes = new byte[40];
     if (40 != is.read(bytes)) {
-      throw new IOException();
+      throw new IOException("invalid dib header");
     }
 
     ByteBuffer buffer = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN);
@@ -56,7 +56,7 @@ public class BitmapReader24BitsBased implements BitmapReader {
     for (int heightIndex = 0; heightIndex < height; heightIndex++) {
       byte[] row = data[heightIndex];
       if (row.length != is.read(row)) {
-        throw new IOException();
+        throw new IOException("invalid data");
       }
     }
 

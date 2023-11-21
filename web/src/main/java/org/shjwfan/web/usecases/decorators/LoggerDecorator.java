@@ -1,9 +1,10 @@
 package org.shjwfan.web.usecases.decorators;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class LoggerDecorator {
 
-  protected final Logger logger = LoggerFactory.getLogger(getClass());
+  protected final Logger logger = getLogger(getClass());
 }

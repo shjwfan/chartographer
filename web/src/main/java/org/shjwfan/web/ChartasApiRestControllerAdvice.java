@@ -30,12 +30,15 @@ public class ChartasApiRestControllerAdvice {
   public ResponseEntity<UnexpectedResponse> handleException(Exception e) {
     HttpStatus status;
 
+    int availableExceptionSize = EXCEPTION_CLASS_2_STATUS.size();
     do {
       status = EXCEPTION_CLASS_2_STATUS.get(e.getClass());
+      availableExceptionSize--;
+
       if (e.getCause() instanceof Exception cause) {
         e = cause;
       }
-    } while (status == null && e.getCause() == null);
+    } while (status == null && availableExceptionSize != 0 && e.getCause() == null);
 
     logger.error("unexpected exception", e);
     return new ResponseEntity<>(new UnexpectedResponse(e.getMessage()), status != null ? status : HttpStatus.INTERNAL_SERVER_ERROR);
